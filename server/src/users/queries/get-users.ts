@@ -1,18 +1,7 @@
 import { QueryOptions } from '../dto/query-options';
 
-const DEFAULT_PAGE = 0;
-const DEFAULT_PAGE_SIZE = 25;
-
 export const selectUsersQuery = (queryOptions: QueryOptions) => {
   let { page, pageSize, search } = queryOptions;
-
-  if (!page) {
-    page = DEFAULT_PAGE;
-  }
-
-  if (!pageSize) {
-    pageSize = DEFAULT_PAGE_SIZE;
-  }
 
   const offset = page * pageSize;
 
@@ -25,7 +14,7 @@ WITH CTE AS (
         COUNT(*) OVER() AS total_count
     FROM
         users
-    WHERE (name ILIKE '${sanitizedSearch}%' OR surname ILIKE '${sanitizedSearch}%')
+    WHERE (fullname ILIKE '${sanitizedSearch}%')
     ORDER BY
         name
     LIMIT ${pageSize}

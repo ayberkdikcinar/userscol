@@ -26,8 +26,11 @@ export class UsersService {
 
   async getUsers(queryOptions: QueryOptions): Promise<GetUsersPayload> {
     const res = await this.pool.query(selectUsersQuery(queryOptions));
-    const users: UserPayload[] = res.rows;
     const info = paginationInfoWriter(res.rows, queryOptions);
+
+    const users = res.rows.map(
+      ({ total_count, ...rest }) => rest,
+    ) as UserPayload[];
 
     const response: GetUsersPayload = {
       data: users,

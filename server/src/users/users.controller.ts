@@ -13,12 +13,22 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { QueryOptions } from './dto/query-options';
 
+const DEFAULT_PAGE = 0;
+const DEFAULT_PAGE_SIZE = 25;
+
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
   async getUsers(@Query() queryOptions: QueryOptions) {
+    if (!queryOptions.page) {
+      queryOptions.page = DEFAULT_PAGE;
+    }
+
+    if (!queryOptions.pageSize) {
+      queryOptions.pageSize = DEFAULT_PAGE_SIZE;
+    }
     return await this.usersService.getUsers(queryOptions);
   }
 

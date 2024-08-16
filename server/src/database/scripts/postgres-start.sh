@@ -11,6 +11,7 @@ read PASSWORD
 PW=$PASSWORD;
 DB="user_db";
 SQL_QUERY_FILE="users.sql";
+DUMMY_USERS_FILE="dummy-users.csv";
 
 echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of [$SERVER]"
 (docker kill $SERVER || :) && \
@@ -31,6 +32,7 @@ echo "\l" | docker exec -i $SERVER psql -U postgres
 #create user table
 echo "Copy user table from create-user-table.sql"
 docker cp $SQL_QUERY_FILE $SERVER:/$SQL_QUERY_FILE
+echo "Copy dummy-users.csv"
+docker cp $DUMMY_USERS_FILE $SERVER:/$DUMMY_USERS_FILE
 echo "CREATE USER TABLE $DB ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres -d user_db -f /$SQL_QUERY_FILE
-
 docker run -p 80:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@admin.com' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d dpage/pgadmin4
