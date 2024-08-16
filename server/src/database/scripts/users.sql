@@ -15,8 +15,10 @@ CREATE TABLE IF NOT EXISTS users (
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
---composite index.
-CREATE INDEX idx_users_name_surname ON users(name, surname);
+--index.
+CREATE EXTENSION pg_trgm;
+CREATE INDEX trgm_idx_users_name ON users USING gin (name gin_trgm_ops);
+CREATE INDEX idx_role ON users (role);
 
 
 -- Insert dummy data

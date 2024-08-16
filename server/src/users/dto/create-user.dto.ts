@@ -9,7 +9,7 @@ import {
   Min,
 } from 'class-validator';
 
-import { Role } from '../types/enum/role.';
+import { Role } from '../types/enum/role';
 
 export class CreateUserDto {
   @IsNotEmpty()
