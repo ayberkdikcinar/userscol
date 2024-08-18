@@ -44,6 +44,7 @@ export default function Pagination({ pageCount, currentPage, onPageChange }: Pag
       </div>
       {pages.map((page) => (
         <div
+          key={page}
           className={`border p-2 text-sm cursor-pointer hover:bg-gray-300 ${
             currentPage === page ? 'bg-gray-500 text-white' : 'bg-gray-100'
           }`}

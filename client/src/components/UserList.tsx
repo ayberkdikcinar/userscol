@@ -65,7 +65,7 @@ export default function UserList({ users }: UserListProps) {
     <div>
       <DataTable<User> config={config} data={users} keyFn={keyFn} />
       <CustomModal header='Edit User' isOpen={isOpen} handleCancelClick={() => setIsOpen(false)}>
-        <UserForm user={selectedUser} />
+        <UserForm user={selectedUser} onSuccessSubmit={() => setIsOpen(false)} />
       </CustomModal>
     </div>
   );

@@ -8,6 +8,7 @@ import { addUser, ErrorResponse, updateUser } from '../services/user-service';
 import { AxiosError } from 'axios';
 import { roles } from '../services/types/role';
 import { capitalizeFirstLetter } from '../utils/capitalizeFirstLetter';
+import { useUserMutation } from '../hooks/useUserMutation';
 
 const createSchema = (isEdit: boolean) =>
   z.object({
@@ -32,9 +33,12 @@ type FormFields = z.infer<ReturnType<typeof createSchema>>;
 
 interface UserFormProps {
   user?: User;
+  onSuccessSubmit?: () => void;
 }
-export default function UserForm({ user }: UserFormProps) {
+export default function UserForm({ user, onSuccessSubmit }: UserFormProps) {
   const schema = createSchema(!!user);
+
+  const mutation = useUserMutation(user ? updateUser : addUser);
 
   const {
     register,
@@ -66,10 +70,15 @@ export default function UserForm({ user }: UserFormProps) {
           id: user.id,
           ...data,
         };
-        return await updateUser(updatedUser as User);
+
+        await mutation.mutateAsync(updatedUser as User);
+      } else {
+        await mutation.mutateAsync(data as User);
       }
 
-      return await addUser(data as User);
+      if (onSuccessSubmit) {
+        onSuccessSubmit();
+      }
     } catch (error) {
       const err = error as AxiosError<ErrorResponse>;
       setError('root', {

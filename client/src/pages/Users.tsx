@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchUsers } from '../services/user-service';
 import UserList from '../components/UserList';
 import Search from '../components/Search';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Fragment } from 'react/jsx-runtime';
 import CustomModal from '../components/Modal';
 import Skeleton from '../components/Skeleton';
@@ -17,9 +17,12 @@ export default function UsersPage() {
   const queryParams = new URLSearchParams(location.search);
   const term = queryParams.get('term');
 
-  console.log('queryParams:', queryParams);
   const [page, setPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setPage(1);
+  }, [term]);
 
   const { data: fetchResponse, isLoading } = useQuery({
     queryFn: async () => await fetchUsers({ page: page, pageSize: PAGE_SIZE, search: term || '' }),
@@ -59,7 +62,7 @@ export default function UsersPage() {
       </div>
       {isOpen && (
         <CustomModal header='Add User' isOpen={isOpen} handleCancelClick={() => setIsOpen(false)}>
-          <UserForm />
+          <UserForm onSuccessSubmit={() => setIsOpen(false)} />
         </CustomModal>
       )}
     </Fragment>
