@@ -33,7 +33,7 @@ export default function DataTable<T>({ data, config, keyFn }: DataTableProps<T>)
   });
 
   return (
-    <table className='m-2 table-auto border-spacing-2'>
+    <table className='w-full m-2 table-auto border-spacing-2'>
       <thead>
         <tr className='border-b-2'>{renderedHeaders}</tr>
       </thead>

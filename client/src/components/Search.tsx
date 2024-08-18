@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 
 export default function Search() {
+  const navigate = useNavigate();
   const [term, setTerm] = useState('');
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    navigate(`?term=${term}`);
   };
 
   return (

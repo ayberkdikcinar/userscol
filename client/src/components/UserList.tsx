@@ -1,12 +1,18 @@
 import type { User } from '../services/types/user';
 import DataTable from './DataTable';
 import { FaUserEdit } from 'react-icons/fa';
+import CustomModal from './Modal';
+import UserForm from './UserForm';
+import { useState } from 'react';
 
 interface UserListProps {
   users: User[];
 }
 
 export default function UserList({ users }: UserListProps) {
+  const [selectedUser, setSelectedUser] = useState<User>();
+  const [isOpen, setIsOpen] = useState(false);
+
   const config = [
     {
       label: 'Name',
@@ -22,7 +28,7 @@ export default function UserList({ users }: UserListProps) {
     },
     {
       label: 'Role',
-      render: (user: User) => user?.role?.toString(),
+      render: (user: User) => user?.role,
     },
     {
       label: 'Age',
@@ -43,8 +49,16 @@ export default function UserList({ users }: UserListProps) {
   };
 
   function handleEditClick(user: User) {
-    console.log('edit click worked with user:', user.name);
+    setSelectedUser(user);
+    setIsOpen(true);
   }
 
-  return <DataTable<User> config={config} data={users} keyFn={keyFn} />;
+  return (
+    <div>
+      <DataTable<User> config={config} data={users} keyFn={keyFn} />
+      <CustomModal header='Edit User' isOpen={isOpen} handleCancelClick={() => setIsOpen(false)}>
+        <UserForm user={selectedUser} />
+      </CustomModal>
+    </div>
+  );
 }
