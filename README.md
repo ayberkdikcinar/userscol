@@ -18,9 +18,12 @@ git clone https://github.com/ayberkdikcinar/userscol.git
 cd userscol
 ```
 
-### 2. Install Dependecies
+### 2. Install Dependecies for both client and server
 
 ```bash
+cd client/
+npm install
+cd server/
 npm install
 ```
 
@@ -31,10 +34,11 @@ The database setup script is included in the repository under src/database/scrip
 Ensure the script has execution permissions:
 
 ```bash
-chmod +x src/database/scripts/setup_db.sh
+cd server/
+chmod +x src/database/scripts/postgres-start.sh
 ```
 
-Run the script at **src/database/scripts/setup_db.sh**
+Run the script at **src/database/scripts/postgres-start.sh**
 
 **Script will accept a password for the database_user as an input.**
 
