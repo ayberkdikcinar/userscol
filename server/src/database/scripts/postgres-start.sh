@@ -3,10 +3,13 @@ set -e
 
 SERVER="user-ms";
 
+SCRIPT_DIR=$(dirname "$0")
+
 echo "Default db username is 'postgres'"
 
 echo "Enter Database password: "
 read PASSWORD
+
 
 PW=$PASSWORD;
 DB="user_db";
@@ -31,8 +34,8 @@ echo "\l" | docker exec -i $SERVER psql -U postgres
 
 #create user table
 echo "Copy user table from create-user-table.sql"
-docker cp $SQL_QUERY_FILE $SERVER:/$SQL_QUERY_FILE
+docker cp "$SCRIPT_DIR/$SQL_QUERY_FILE" $SERVER:/$SQL_QUERY_FILE
 echo "Copy dummy-users.csv"
-docker cp $DUMMY_USERS_FILE $SERVER:/$DUMMY_USERS_FILE
+docker cp "$SCRIPT_DIR/$DUMMY_USERS_FILE" $SERVER:/$DUMMY_USERS_FILE
 echo "CREATE USER TABLE $DB ENCODING 'UTF-8';" | docker exec -i $SERVER psql -U postgres -d user_db -f /$SQL_QUERY_FILE
 docker run -p 80:80 -e 'PGADMIN_DEFAULT_EMAIL=admin@admin.com' -e 'PGADMIN_DEFAULT_PASSWORD=admin' -d dpage/pgadmin4
