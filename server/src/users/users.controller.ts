@@ -13,7 +13,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { QueryOptions } from './dto/query-options';
 
-const DEFAULT_PAGE = 0;
+const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 25;
 
 @Controller('users')

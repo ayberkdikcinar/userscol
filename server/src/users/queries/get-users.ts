@@ -3,7 +3,7 @@ import { QueryOptions } from '../dto/query-options';
 export const selectUsersQuery = (queryOptions: QueryOptions) => {
   let { page, pageSize, search } = queryOptions;
 
-  const offset = page * pageSize;
+  const offset = (page - 1) * pageSize;
 
   const sanitizedSearch = search ? search.replace(/'/g, "''") : '';
 
@@ -14,7 +14,7 @@ WITH CTE AS (
         COUNT(*) OVER() AS total_count
     FROM
         users
-    WHERE (fullname ILIKE '${sanitizedSearch}%')
+    WHERE (fullname ILIKE '%${sanitizedSearch}%')
     ORDER BY
         name
     LIMIT ${pageSize}

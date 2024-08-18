@@ -5,7 +5,7 @@ export class QueryOptions {
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  @Min(0)
+  @Min(1)
   page: number;
 
   @IsOptional()

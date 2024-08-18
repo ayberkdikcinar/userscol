@@ -14,7 +14,7 @@ export function paginationInfoWriter(
   if (data.length > 0) {
     total = parseInt(data[0]?.total_count);
     let pointer =
-      queryOptions.page * queryOptions.pageSize + queryOptions.pageSize;
+      (queryOptions.page - 1) * queryOptions.pageSize + queryOptions.pageSize;
 
     nextPage = total - pointer > 0;
   }

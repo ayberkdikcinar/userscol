@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
   role VARCHAR(30),
   "createdAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  fullname VARCHAR(255) GENERATED ALWAYS AS (name || ' ' || surname) STORED
+  fullname VARCHAR(255) GENERATED ALWAYS AS (name || ' ' || coalesce(surname, '')) STORED
 );
 
 

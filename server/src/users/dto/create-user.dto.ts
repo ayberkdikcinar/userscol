@@ -16,7 +16,7 @@ export class CreateUserDto {
   @IsString()
   name: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   surname: string;
 
@@ -31,7 +31,6 @@ export class CreateUserDto {
   @IsString()
   phone: string;
 
-  @IsOptional()
   @IsInt()
   @Min(0)
   @Max(150)
