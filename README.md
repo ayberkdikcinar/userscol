@@ -69,6 +69,7 @@ npm run dev
 ```
 
 **Note:** backend should be run on port **8000**.
+**Note:** dummy data user password are not hashed due to direct mutation on db. However, password hash is on **8000**.
 
 pgAdmin is available at **http://localhost:80** with the following default credentials:
 
