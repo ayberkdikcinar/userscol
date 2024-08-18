@@ -27,6 +27,7 @@ export default function UsersPage() {
   const { data: fetchResponse, isLoading } = useQuery({
     queryFn: async () => await fetchUsers({ page: page, pageSize: PAGE_SIZE, search: term || '' }),
     queryKey: ['users', { term, page }],
+    staleTime: Infinity,
   });
 
   function render() {

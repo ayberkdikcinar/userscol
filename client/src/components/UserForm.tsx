@@ -121,7 +121,9 @@ export default function UserForm({ user, onSuccessSubmit }: UserFormProps) {
         </label>
         <select id='role' className='focus:outline-none border-2 p-1 ml-1 w-full' {...register('role')}>
           {roles.map((role) => (
-            <option value={role}>{capitalizeFirstLetter(role)}</option>
+            <option key={role} value={role}>
+              {capitalizeFirstLetter(role)}
+            </option>
           ))}
         </select>
       </div>
@@ -134,7 +136,9 @@ export default function UserForm({ user, onSuccessSubmit }: UserFormProps) {
           </label>
           <select id='country' className='focus:outline-none border-2 p-1 w-8/12' {...register('country')}>
             {countries.map((country) => (
-              <option value={`${country.value}`}>{country.label}</option>
+              <option key={country.value} value={country.value}>
+                {country.label}
+              </option>
             ))}
           </select>
         </div>
