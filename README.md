@@ -14,8 +14,8 @@ This application is a NestJS project that uses a PostgreSQL database. Follow the
 Clone this repository to your local machine using:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/ayberkdikcinar/userscol.git
+cd userscol
 ```
 
 ### 2. Install Dependecies
