@@ -27,12 +27,20 @@ export default function UserList({ users }: UserListProps) {
       render: (user: User) => user?.email,
     },
     {
+      label: 'Phone',
+      render: (user: User) => user?.phone,
+    },
+    {
       label: 'Role',
       render: (user: User) => user?.role,
     },
     {
       label: 'Age',
       render: (user: User) => user?.age,
+    },
+    {
+      label: 'Country',
+      render: (user: User) => user?.country,
     },
     {
       label: 'Operations',

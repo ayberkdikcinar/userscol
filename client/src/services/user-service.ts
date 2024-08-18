@@ -46,11 +46,13 @@ async function updateUser(user: User) {
 }
 
 async function addUser(user: User): Promise<User> {
+  console.log('user:', user);
   const response = (
     await axios.post(`${getEndpointURI('users')}/save`, {
       ...user,
     })
   ).data as User;
+  console.log('response:', response);
   return response;
 }
 

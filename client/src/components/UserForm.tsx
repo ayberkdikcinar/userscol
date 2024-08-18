@@ -6,6 +6,8 @@ import { User } from '../services/types/user';
 import Input from './Input';
 import { addUser, ErrorResponse, updateUser } from '../services/user-service';
 import { AxiosError } from 'axios';
+import { roles } from '../services/types/role';
+import { capitalizeFirstLetter } from '../utils/capitalizeFirstLetter';
 
 const createSchema = (isEdit: boolean) =>
   z.object({
@@ -33,6 +35,7 @@ interface UserFormProps {
 }
 export default function UserForm({ user }: UserFormProps) {
   const schema = createSchema(!!user);
+
   const {
     register,
     handleSubmit,
@@ -65,6 +68,7 @@ export default function UserForm({ user }: UserFormProps) {
         };
         return await updateUser(updatedUser as User);
       }
+
       return await addUser(data as User);
     } catch (error) {
       const err = error as AxiosError<ErrorResponse>;
@@ -102,11 +106,21 @@ export default function UserForm({ user }: UserFormProps) {
         {...register('phone')}
         error={errors.phone?.message}
       />
+      <div className='flex justify-start items-center'>
+        <label htmlFor='role' className='text-sm font-medium text-gray-700 w-1/6'>
+          Role:
+        </label>
+        <select id='role' className='focus:outline-none border-2 p-1 ml-1 w-full' {...register('role')}>
+          {roles.map((role) => (
+            <option value={role}>{capitalizeFirstLetter(role)}</option>
+          ))}
+        </select>
+      </div>
       <Input id='age' label='Age' type='number' {...register('age')} error={errors.age?.message} />
 
       <div className='flex items-center justify-between'>
         <div className='w-6/12'>
-          <label htmlFor='country:' className='text-sm font-medium text-gray-700 mr-2'>
+          <label htmlFor='country' className='text-sm font-medium text-gray-700 mr-2'>
             Country:
           </label>
           <select id='country' className='focus:outline-none border-2 p-1 w-8/12' {...register('country')}>
