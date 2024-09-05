@@ -42,7 +42,7 @@ Run the script at **src/database/scripts/postgres-start.sh**
 
 **Script will accept a password for the database_user as an input.**
 
-### 4. Create a .env file in the project root directory with the following content:
+### 4. Create a .env file in the SERVER project root directory with the following content:
 
 Replace the password with the password that you have given to the postgres-start.sh script. Do not change the other pairs.
 
