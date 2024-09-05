@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
 
 export default function Search() {
   const navigate = useNavigate();
-  const [term, setTerm] = useState('');
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const [term, setTerm] = useState(queryParams.get('term'));
 
   useEffect(() => {
     const debounce = setTimeout(() => {
@@ -21,7 +24,7 @@ export default function Search() {
         <input
           type='text'
           className='border-2 focus:outline-none'
-          value={term}
+          value={term || ''}
           onChange={(e) => setTerm(e.target.value)}
         />
       </div>
