@@ -47,11 +47,11 @@ Run the script at **src/database/scripts/postgres-start.sh**
 Replace the password with the password that you have given to the postgres-start.sh script. Do not change the other pairs.
 
 ```bash
-DATABASE_HOST=localhost
-DATABASE_PORT=5432
-DATABASE_USER=postgres
-DATABASE_PASSWORD=your_password
-DATABASE_NAME=user_db
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=your-password
+DB_NAME=user_db
 ```
 
 ### 5. Run the server app;
